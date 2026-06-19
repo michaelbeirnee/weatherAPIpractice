@@ -58,7 +58,22 @@ public class WeatherService {
         }
         //start a try block because the outside api could fail 
         try{
-            String weatherResponse = restClient.get(); 
+            //sends a get request to visla crossing and stroes the json resposne as a string
+            String weatherResponse = restClient.get()
+                //builds the full apu url using the base url, city, unit type, api key, and json
+                .uri(baseUrl + "/" + city + "?unitGroup=us&key=" + apiKey + "&contentType=json")
+                //sends the request and prepares to read the response
+                .retrieve()
+                //converts the resposne body into a string
+                .body(String.class); 
+
+                
+            //saves the wether resposne in Redis with a 12-hour expiration 
+            redisTemplate.opsForValue().set(cacheKey, weatherResponse, Duration.ofHours(12));
+
+            return weatherResponse; 
+        }catc(Exception e){
+            throw new WeatherApiException("Could not fetch weather data for city:" + city); 
         }
 
     }

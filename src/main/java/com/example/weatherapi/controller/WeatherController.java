@@ -18,5 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class WeatherController {
-    private final 
+    //stores a reference to weatherService 
+    private final WeatherService weatherService; 
 }

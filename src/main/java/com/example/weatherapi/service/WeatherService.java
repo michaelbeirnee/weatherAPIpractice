@@ -72,7 +72,7 @@ public class WeatherService {
             redisTemplate.opsForValue().set(cacheKey, weatherResponse, Duration.ofHours(12));
 
             return weatherResponse; 
-        }catc(Exception e){
+        }catch(Exception e){
             throw new WeatherApiException("Could not fetch weather data for city:" + city); 
         }
 

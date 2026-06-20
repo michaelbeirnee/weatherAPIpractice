@@ -1,0 +1,11 @@
+#defines the continer this project needs
+services: 
+
+  #creates a redis serviice / container 
+  redis: 
+    #uses the ofifical redis docker image
+    image: redis:latest
+
+    #maps your computer psot 6379 - to the redis container port 
+    ports:
+      -"6379:6379"
